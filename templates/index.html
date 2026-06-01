@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Apoio ao Chat</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1> Painel - Apoio ao Chat </h1>
+
+        <div class="painel-atendimento">
+
+            <div 
+                id="card-atual"
+
+                class="atendimento-atual
+
+                {% if apoio_status == 'solicitado' %}
+                    apoio-pendente
+                {% endif %}
+
+                {% if apoio_status == 'em_apoio' %}
+                    apoio-ativo
+                {% endif %}
+            ">
+
+                <span class="status-online">
+                    Atendente Atual
+                </span>
+
+                <h2>{{atual.analista}}</h2>
+                <p>
+                    {{atual.horario_inicio}} até {{atual.horario_fim}}
+                </p>
+
+
+                {% if apoio_status == 'solicitado' %}
+                    <div class="mensagem-apoio">
+                        Solicito apoio no chat
+                    </div>
+                {% endif %}
+
+                {% if apoio_nome %}
+                    <div class="apoio-info">
+
+                        Apoio:
+                        <strong>{{apoio_nome}}</strong>
+
+                    </div>
+
+                    <button id="encerrar-apoio">
+                        Encerrar apoio
+                    </button>
+
+                {% endif %}
+
+                {% if not apoio_status %}
+
+                    <button id="btn-apoio-chat">
+                        Solicitar apoio no chat
+                    </button>
+
+                {% endif %}
+
+                {% if apoio_status == 'solicitado' %}
+
+                    <div class="lista-apoios">
+
+                        <select id="select-apoio">
+
+                            <option value="">
+                                Selecione um nome para apoio ao chat
+                            </option>
+
+                            {% for apoio in apoios %}
+
+                                <option value="{{ apoio }}">
+                                    {{ apoio }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                        <button id="confirmar-apoio">
+                            Confirmar apoio
+                        </button>
+
+                    </div>
+
+                {% endif %} 
+
+            </div>
+
+            
+            <div id="card-proximo" class="proximo-atendimento">
+
+                <button id="abrir-agenda" class="btn-agenda">
+                    📅
+                </button>
+
+                <span class="status-proximo">
+                    Próximo Atendente
+                </span>
+                
+                <h3>{{proximo.analista}}</h3>
+                
+                <p>
+                    {{proximo.horario_inicio}} até {{proximo.horario_fim}}
+                </p>
+
+            </div>
+            
+        </div>
+
+
+        <div id="modal-agenda" class="modal-agenda">
+
+            <div class="modal-conteudo">
+
+                <span id="fechar-agenda">
+                    ×
+                </span>
+
+                <img 
+                    src="{{ url_for('static', filename='calendar.jpeg') }}"
+                    alt="Agenda semanal"
+                >
+
+            </div>
+
+        </div>
+
+        <div class="painel-solicitacao">
+
+            <h3>Infome o nº do chamado para solictar o apoio remoto:</h3>
+        
+            <form id="form">
+
+                <input 
+                    type="text"
+                    name="chamado"
+                    placeholder="Número do chamado"
+                    required
+                >
+
+                <button type="submit">
+                    Solicitar apoio remoto
+                </button>
+
+            </form>
+
+        </div>
+        <div id="lista-chamados" class="lista-chamados">
+
+            {% for chamado in chamados %}
+
+                <div class="linha 
+                    {% if chamado.status == 'Aguardando' %}
+                        aguardando
+
+                    {% elif chamado.status == 'Em ligação' %}
+                        contato
+
+                    {% elif chamado.status == 'Não atendeu' %}
+                        nao-atendeu
+
+                    {% else %}
+                        atendimento
+                    {% endif %}
+                ">
+
+                    <!-- CHAMADO -->
+                    <div>
+
+                        <a 
+                            href="http://assyst/chamado/{{ chamado.chamado }}"
+                            target="_blank"
+                            class="link-chamado"
+                        >
+                            #{{ chamado.chamado }}
+                        </a>
+
+                    </div>
+
+                    <!-- STATUS -->
+                    <div>
+                        {{ chamado.status }}
+                    </div>
+
+                    <!-- TÉCNICO -->
+                    <div>
+                        {{ chamado.tecnico if chamado.tecnico else 'Nenhum técnico' }}
+                    </div>
+
+
+                    <!-- AGUARDANDO -->
+                    {% if chamado.status == 'Aguardando' %}
+
+                        <div class="acoes">
+
+                            <select class="tecnico-select">
+
+                                <option value="">
+                                    Técnico
+                                </option>
+
+                                <option value="Ana">
+                                    Ana
+                                </option>
+
+                                <option value="André">
+                                    André
+                                </option>
+
+                                <option value="Alvaro">
+                                    Alvaro
+                                </option>
+
+                                <option value="Allan">
+                                    Allan
+                                </option>
+
+                                <option value="Bruno">
+                                    Bruno
+                                </option>
+
+                                <option value="Diogo">
+                                    Diogo
+                                </option>
+
+                                <option value="Elian">
+                                    Elian
+                                </option>
+
+                                <option value="Edson">
+                                    Edson
+                                </option>
+
+                                <option value="Jefferson">
+                                    Jefferson
+                                </option>
+
+                                <option value="Jayme">
+                                    Jayme
+                                </option>
+
+                                <option value="Marlon">
+                                    Marlon
+                                </option>
+
+                                <option value="Ramon">
+                                    Ramon
+                                </option>
+                                
+                                <option value="Yslanson">
+                                    Yslanson
+                                </option>
+                                
+                                <option value="Thais">
+                                    Thais
+                                </option>
+                                
+
+                            </select>
+
+                            <button 
+                                class="assumir-btn"
+                                data-id="{{ chamado.id }}"
+                            >
+                                Assumir Atendimento
+                            </button>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- ASSUMIU -->
+                    {% if chamado.status == 'Assumiu atendimento' %}
+
+                        <div class="acoes-status">
+
+                            <button 
+                                class="ligacao-btn"
+                                data-id="{{ chamado.id }}"
+                            >
+                                Iniciar ligação
+                            </button>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- EM LIGAÇÃO -->
+                    {% if chamado.status == 'Tentando contato com usuário' %}
+
+                        <div class="acoes-status">
+
+                            <button 
+                                class="contato-btn"
+                                data-id="{{ chamado.id }}"
+                            >
+                                Em ligação
+                            </button>
+
+                            <button 
+                                class="nao-atendeu-btn"
+                                data-id="{{ chamado.id }}"
+                            >
+                                Não atendeu
+                            </button>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- CONTATO REALIZADO -->
+                    {% if chamado.status == 'Em ligação' %}
+
+                        <div class="acoes-status">
+
+                            <button 
+                                class="concluir-btn"
+                                data-id="{{ chamado.id }}"
+                            >
+                                Concluir
+                            </button>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <!-- NÃO ATENDEU -->
+                    {% if chamado.status == 'Não atendeu' %}
+
+                        <div class="acoes-status">
+
+                            <button 
+                                class="ligacao-btn"
+                                data-id="{{ chamado.id }}"
+                            >
+                                Tentar novamente
+                            </button>
+
+                            <button 
+                                class="concluir-btn"
+                                data-id="{{ chamado.id }}"
+                            >
+                                Concluir
+                            </button>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+    {% if not session.get('admin') %}
+
+    <div class="admin-float">
+        <button id="abrir-admin">
+            <img
+                src="{{url_for('static', filename='admin.png')}}"
+                alt="Admin"
+                class="icon-admin"
+            >
+        </button>
+
+        <div id="login-admin-box" class="login-admin-box">
+            <h3>
+                Área Administrativa
+            </h3>
+    
+            <input 
+                type="password"
+                id="senha-admin"
+                placeholder="Senha"
+            >
+    
+            <button id="btn-login-admin">
+                Entrar
+            </button>
+        </div>
+    </div>
+
+    {% endif %}
+
+    {% if session.get('admin') %}
+
+    <div class="admin-logado">
+        <button id="abrir-painel-admin">
+            Modo Adminitrador
+        </button>
+    </div>
+
+    <div id="modal-admin" class="modal-admin">
+
+        <div class="modal-admin-conteudo">
+
+            <span id="fechar-admin">
+                ×
+            </span>
+
+            <h2>
+                Painel Administrativo
+            </h2>
+
+            
+            <form id="form-admin" enctype="multipart/form-data">
+                
+                <label>
+                    Imagem da agenda
+                </label>
+                
+                <input 
+                type="file"
+                id="imagem-agenda"
+                accept="image/*"
+                >
+                
+                <label>
+                    Planilha CSV
+                </label>
+                
+                <input 
+                type="file"
+                id="csv-agenda"
+                accept=".csv"
+                >
+                
+                <button type="submit" id="btnAtualizar">
+                    Atualizar arquivos
+                </button>
+
+                <button type="button" id="logout-admin">
+                    Sair
+                </button>
+            </form>
+        
+        </div>
+    </div>
+
+    {% endif %}
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+
+</html>
