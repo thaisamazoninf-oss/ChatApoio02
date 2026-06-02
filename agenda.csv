@@ -2,8 +2,6 @@ Horario,Segunda,Terça,Quarta,Quinta,Sexta,Sabado,Domingo
 06:00-08:00,Ana Lima,Ana Lima,Ana Lima,Ana Lima,Ana Lima,,
 08:00-10:00,Marlon Castro,Ana Lima,Ana Lima,Yslanson,Allan,,
 10:00-12:00,Yslanson,Marlon Castro,Thais,Allan,Thais,,
-12:00-14:00,Edson,Bruno,Jeferson,Elian,Bruno,,
-14:00-16:00,Alváro,Ramon,Edson,Ramon,Jeferson,,
-16:00-18:00,Diogo,Elian,Alvaro,Diogo,Alvaro,,
-18:00-19:30,,,,,,,Ricardo
-23:00-23:30,,,,,,,Osvaldo
+12:00-14:00,Edson,Bruno,Jeferson,Diogo,Bruno,,
+14:00-16:00,Diogo,Alvaro,Ramon,Ramon,Jeferson,,
+16:00-18:00,Alvaro,Elian,Elian,Alvaro,Edson,,
