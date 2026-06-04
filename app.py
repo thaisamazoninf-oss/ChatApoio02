@@ -156,8 +156,6 @@ def carregar_linhas():
         
         leitor = csv.DictReader(arquivo)
         
-       
-        
         for linha in leitor:
             print(linha)
             break  # Remover ou comentar este break para ler todas as linhas
@@ -292,7 +290,7 @@ def logout_admin():
 
 #UPLOAD ADMIN
 @app.route("/upload-arquivos", 
-           methods=["POST"]
+            methods=["POST"]
 )
 
 # ROTA PARA UPLOAD DE IMAGEM E CSV, APENAS PARA ADMINISTRADOR
@@ -308,11 +306,15 @@ def upload_arquivos():
     csv_file = request.files.get("csv")
 
     if imagem:
+        
+        extensão = os.path.splitext(
+            imagem.filename
+        )[1].lower()
 
         imagem.save( 
             os.path.join(
                 caminho_arquivo("static"),
-                "calendar.jpeg"
+                f"calendar{extensão}"
             )
         )
 

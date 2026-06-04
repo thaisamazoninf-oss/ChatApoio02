@@ -331,6 +331,7 @@ h1{
 }
 
 #encerrar-apoio{
+    background: rgb(202, 57, 57);
     margin-top: 10px;
     padding: 6px 12px;
     font-size: 13x;
@@ -522,6 +523,10 @@ button:hover{
 
 .contato-btn:hover{
     background: #16a34a;
+}
+
+.nao-atendeu-btn{
+    background: rgb(122, 16, 16);
 }
 
 .linha{

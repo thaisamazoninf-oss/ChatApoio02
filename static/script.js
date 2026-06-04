@@ -16,6 +16,7 @@ socket.on(
     }
 )
 
+/*
 function atualizarChamados(chamados){
     const lista = 
         document.getElementById("lista-chamados")
@@ -32,6 +33,7 @@ function atualizarChamados(chamados){
         `
     })
 }
+*/
 
 async function atualizarPainel(){
     try {
@@ -44,7 +46,8 @@ async function atualizarPainel(){
         console.log("DADOS: ", dados)
 
         atualizarCards(dados)
-
+        
+        /*
         atualizarChamados(
             dados.chamados
         )
@@ -53,7 +56,7 @@ async function atualizarPainel(){
             dados.apoio_status,
             dados.apoio_nome
         )
-
+        */
     } catch (error) {
         console.error("Erro ao atualizar painel:", error)
     }
@@ -579,6 +582,13 @@ if (abrirAdmin) {
     )
 }
 
+
+
 socket.on("atualizar", () => {
-    location.reload()
+    //location.reload()
+    atualizarPainel()
 })
+
+setInterval(() => {
+    atualizarPainel()
+}, 10000)
